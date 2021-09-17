@@ -1063,8 +1063,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sparks: {fileID: 1227059022}
-  numberResult: 0
-  spinning: 0
   wheel: {fileID: 1422053749}
   wheel_sections: {fileID: 1422053751}
   wheelParent: {fileID: 1355154399}
@@ -1077,7 +1075,6 @@ MonoBehaviour:
   - {fileID: 379035305}
   - {fileID: 613103403}
   - {fileID: 583923959}
-  prize: {fileID: 0}
   spriteList: []
   Button: {fileID: 810140133}
   animationCurves:
@@ -1104,6 +1101,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  prizeWinCount: 
 --- !u!4 &689905080
 Transform:
   m_ObjectHideFlags: 0

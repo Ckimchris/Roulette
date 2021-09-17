@@ -3,20 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class Roulette : MonoBehaviour
 {
-    public GameObject sparks;
-    public float numberResult;
-    public bool spinning;    
+    private float numberResult;
+    private bool spinning;
+    private GameObject prize;
+    public GameObject sparks; 
     public GameObject wheel;
     public Transform wheel_sections;
     public Transform wheelParent;
     public List<GameObject> prizes;
-    public GameObject prize;
     public List<Transform> spriteList;
     public GameObject Button;
     public List<AnimationCurve> animationCurves;
+
+    public List<int> prizeWinCount;
+
+    private int SectorOneCount;
+    private int SectorTwoCount;
+    private int SectorThreeCount;
+    private int SectorFourCount;
+    private int SectorFiveCount;
+    private int SectorSixCount;
+    private int SectorSevenCount;
+    private int SectorEightCount;
+
+    //private List<int> prizeCount = new List<int>(prizes.Count);
 
     // Start is called before the first frame update
     void Start()
@@ -26,131 +40,38 @@ public class Roulette : MonoBehaviour
 
     public void Spin()
     {
-        numberResult = Random.Range(1, 100);
-        if(numberResult <= 20)
+        numberResult = Random.Range(1f, 100f);
+        if(numberResult <= 20f)
         {
             StartCoroutine(RedeemPrize(1080f + 22.5f, 0));
         }
-        else if(numberResult > 20 && numberResult <= 30)
+        else if(numberResult > 20f && numberResult <= 30f)
         {
             StartCoroutine(RedeemPrize(1080f + 67.5f, 1));
         }
-        else if(numberResult > 30 && numberResult <= 40)
+        else if(numberResult > 30f&& numberResult <= 40f)
         {
             StartCoroutine(RedeemPrize(1080f + 112.5f, 2));
         }
-        else if(numberResult > 40 && numberResult <= 50)
+        else if(numberResult > 40f && numberResult <= 50f)
         {
             StartCoroutine(RedeemPrize(1080f + 157.5f, 3));
         }
-        else if(numberResult > 50 && numberResult <= 55)
+        else if(numberResult > 50f && numberResult <= 55f)
         {
             StartCoroutine(RedeemPrize(1080f + 202.5f, 4));
         }
-        else if(numberResult > 55 && numberResult <= 75)
+        else if(numberResult > 55f && numberResult <= 75f)
         {
             StartCoroutine(RedeemPrize(1080f + 247.5f, 5));
         }
-        else if(numberResult > 75 && numberResult <= 80)
+        else if(numberResult > 75f && numberResult <= 80f)
         {
             StartCoroutine(RedeemPrize(1080f + 292.5f, 6));
         }
-        else if(numberResult > 80 && numberResult <= 100)
+        else if(numberResult > 80f && numberResult <= 100f)
         {
             StartCoroutine(RedeemPrize(1080f + 337.5f, 7));
-        }
-    }
-
-    public void Spin(bool testing)
-    {
-        numberResult = Random.Range(1, 100);
-        if(numberResult <= 20)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[0].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 22.5f, 0));
-            }
-        }
-        else if(numberResult > 20 && numberResult <= 30)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[1].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 67.5f, 1));
-            }
-        }
-        else if(numberResult > 30 && numberResult <= 40)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[2].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 112.5f, 2));
-            }
-        }
-        else if(numberResult > 40 && numberResult <= 50)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[3].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 157.5f, 3));
-            }
-        }
-        else if(numberResult > 50 && numberResult <= 55)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[4].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 202.5f, 4));
-            }
-        }
-        else if(numberResult > 55 && numberResult <= 75)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[5].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 247.5f, 5));
-            }
-        }
-        else if(numberResult > 75 && numberResult <= 80)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[6].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 292.5f, 6));
-            }
-        }
-        else if(numberResult > 80 && numberResult <= 100)
-        {
-            if(testing)
-            {
-                Debug.Log(prizes[7].name + " was won!");
-            }
-            else
-            {
-                StartCoroutine(RedeemPrize(1080f + 337.5f, 7));
-            }
         }
     }
 
@@ -207,7 +128,7 @@ public class Roulette : MonoBehaviour
         wheel.transform.eulerAngles = new Vector3 (0.0f, 0.0f, endAngle + startAngle);
     }
 
-    private IEnumerator RedeemPrize(float degrees, int prizeNumber)
+    IEnumerator RedeemPrize(float degrees, int prizeNumber)
     {
         StartCoroutine(SpinTheWheel (3f, degrees));
         prize = prizes[prizeNumber];
@@ -236,5 +157,110 @@ public class Roulette : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void Spin(bool testing)
+    {
+        numberResult = Random.Range(1f, 100f);
+        if(numberResult <= 20f)
+        {
+            if(testing)
+            {
+                SectorOneCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 22.5f, 0));
+            }
+        }
+        else if(numberResult > 20f && numberResult <= 30f)
+        {
+            if(testing)
+            {
+                SectorTwoCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 67.5f, 1));
+            }
+        }
+        else if(numberResult > 30f && numberResult <= 40f)
+        {
+            if(testing)
+            {
+                SectorThreeCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 112.5f, 2));
+            }
+        }
+        else if(numberResult > 40f && numberResult <= 50f)
+        {
+            if(testing)
+            {
+                SectorFourCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 157.5f, 3));
+            }
+        }
+        else if(numberResult > 50f && numberResult <= 55f)
+        {
+            if(testing)
+            {
+                SectorFiveCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 202.5f, 4));
+            }
+        }
+        else if(numberResult > 55f && numberResult <= 75f)
+        {
+            if(testing)
+            {
+                SectorSixCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 247.5f, 5));
+            }
+        }
+        else if(numberResult > 75f && numberResult <= 80f)
+        {
+            if(testing)
+            {
+                SectorSevenCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 292.5f, 6));
+            }
+        }
+        else if(numberResult > 80f && numberResult <= 100f)
+        {
+            if(testing)
+            {
+                SectorEightCount+=1;
+            }
+            else
+            {
+                StartCoroutine(RedeemPrize(1080f + 337.5f, 7));
+            }
+        }
+    }
+
+    public void RecordWins()
+    {
+        prizeWinCount.Add(SectorOneCount);
+        prizeWinCount.Add(SectorTwoCount);
+        prizeWinCount.Add(SectorThreeCount);
+        prizeWinCount.Add(SectorFourCount);
+        prizeWinCount.Add(SectorFiveCount);
+        prizeWinCount.Add(SectorSixCount);
+        prizeWinCount.Add(SectorSevenCount);
+        prizeWinCount.Add(SectorEightCount);
     }
 }

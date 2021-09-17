@@ -1,0 +1,10 @@
+Iteration Count Log 
+
+Prize Name: heart_30Min Win Count 198
+Prize Name: brush_X3 Win Count 107
+Prize Name: gem_35 Win Count 112
+Prize Name: hammer_X3 Win Count 106
+Prize Name: coin_750 Win Count 43
+Prize Name: brush_X1 Win Count 197
+Prize Name: gem_75 Win Count 42
+Prize Name: hammer_X1 Win Count 195
